@@ -15,3 +15,13 @@ h1 {
     font-size: 2em;
     color: #c6c6c6;
 }
+
+h2 {
+  margin: 20px auto; /* Ajoute une marge en haut et en bas, et centre le h2 */
+  padding: 20px; /* Espacement confortable à l'intérieur de la bordure */
+  border: 2px solid #a8a8a8; /* Bordure gris clair */
+  border-radius: 10px; /* Angles arrondis */
+  width: fit-content; /* Assure que la largeur s'ajuste au contenu avec un peu d'espace */
+  background-color: #c6c6c6; /* Couleur de fond gris clair */
+  color: #000000; /* Texte en noir foncé */
+}
