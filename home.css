@@ -25,3 +25,8 @@ h2 {
   background-color: #c6c6c6; /* Couleur de fond gris clair */
   color: #000000; /* Texte en noir foncé */
 }
+
+h1, h2 {
+    font-family: 'Helvetica', sans-serif;
+    text-align: center;
+}
