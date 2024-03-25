@@ -60,3 +60,7 @@ form {
 label {
     margin: 10px 0;
 }
+
+select, input[type="radio"] + label {
+    margin-right: 10px;
+}
