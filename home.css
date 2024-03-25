@@ -30,3 +30,12 @@ h1, h2 {
     font-family: 'Helvetica', sans-serif;
     text-align: center;
 }
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
