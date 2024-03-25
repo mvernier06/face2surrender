@@ -39,3 +39,9 @@ h1, h2 {
     padding: 20px;
     box-sizing: border-box;
 }
+
+.header span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #c6c6c6;
+}
