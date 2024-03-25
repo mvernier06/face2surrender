@@ -76,3 +76,8 @@ button {
     margin-top: 20px;
     transition: background-color 0.3s;
 }
+
+button:hover {
+    background-color: white ;
+    color: black;
+}
