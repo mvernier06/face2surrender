@@ -64,3 +64,15 @@ label {
 select, input[type="radio"] + label {
     margin-right: 10px;
 }
+
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
