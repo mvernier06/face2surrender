@@ -9,3 +9,9 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+
+h1 {
+    margin: 20px 0;
+    font-size: 2em;
+    color: #c6c6c6;
+}
