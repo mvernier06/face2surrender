@@ -1,0 +1,13 @@
+# Charger le modèle
+model = VAE(input_channels, latent_dim)
+model.load_state_dict(torch.load('model.pth'))
+
+# Charger le subset
+train_dataset = torch.load('test.pt')
+
+Avec cette commande:
+sample_images, attr = next(iter(subset_loader))
+
+Vous recuperez les images d'un batch de taille 32
+sample_images c'est les 32 images avec 3 arrays chacune pour le RGB
+attr c'est les attributs donc on peut remonter à couleur cheveux etc.
