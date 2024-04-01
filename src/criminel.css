@@ -30,3 +30,11 @@
     width: 100%; /* Fait en sorte que les images remplissent leurs conteneurs */
     height: auto; /* Ajuste automatiquement la hauteur pour maintenir les proportions */
 }
+
+body {
+    background-color: black; /* Fond noir */
+    color: #c6c6c6; /* Texte gris clair */
+    font-family: Arial, sans-serif; /* Police de caractères */
+    margin: 0;
+    padding: 0;
+}
