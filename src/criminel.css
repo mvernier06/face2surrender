@@ -10,3 +10,23 @@
     height: 100vh; /* Assure que la grille utilise la pleine hauteur */
     box-sizing: border-box; /* Inclut padding dans le calcul de la hauteur et largeur */
 }
+
+.grid-item {
+    position: relative; /* Permet d'utiliser position absolue pour les éléments enfants */
+}
+
+.grid-item img {
+    max-width: 100%; /* Limite la largeur de l'image à 100% de la taille du conteneur */
+    max-height: 100%; /* Limite la hauteur de l'image à 100% de la taille du conteneur */
+    position: absolute; /* Permet de positionner l'image par rapport à son conteneur */
+    top: 0; /* Positionne l'image en haut du conteneur */
+    left: 0; /* Positionne l'image à gauche du conteneur */
+    bottom: 0; /* Positionne l'image en bas du conteneur */
+    right: 0; /* Positionne l'image à droite du conteneur */
+    margin: auto; /* Centre l'image horizontalement et verticalement dans son conteneur */
+    object-fit: contain; /* Ajuste la taille de l'image pour s'adapter au conteneur sans déformer l'image */
+    cursor: pointer; /* Curseur en forme de main pour indiquer que l'image est cliquable */
+    margin-bottom: 5px; /* Marge en bas de l'image */
+    width: 100%; /* Fait en sorte que les images remplissent leurs conteneurs */
+    height: auto; /* Ajuste automatiquement la hauteur pour maintenir les proportions */
+}
