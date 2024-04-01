@@ -81,3 +81,8 @@ button:hover {
     background-color: white ;
     color: black;
 }
+
+.header img {
+    height: 50px;
+    margin-right: 10px;
+}
