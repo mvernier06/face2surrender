@@ -58,3 +58,14 @@ div > span {
 .selected {
     border: 2px solid #007bff; /* Bordure bleue pour indiquer que l'image est sélectionnée */
 }
+
+.bouton {
+    display: block; /* Afficher en tant que bloc pour le centrer */
+    margin: 20px auto; /* Marge pour le centrer horizontalement */
+    padding: 15px 30px; /* Ajouter un espacement interne */
+    font-size: 1.2em; /* Taille de police plus grande */
+    background-color: #f2f2f2; /* Fond gris */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en forme de main */
+}
