@@ -54,3 +54,7 @@ div > span {
     font-size: 24px; /* Taille de police */
     font-weight: bold; /* Gras */
 }
+
+.selected {
+    border: 2px solid #007bff; /* Bordure bleue pour indiquer que l'image est sélectionnée */
+}
