@@ -1,0 +1,25 @@
+Pour faire fonctionner l'interface il faut : python3, Flask 
+Organisation des fichiers : 
+les .py dans le dossier source 
+un dossier static contenant les .css, le logo et un dossier tmp contentant les images 
+un dossier templates contenant les .html
+
+L'arborescence doit ressembler à : 
+
+face2surrender/  
+    static/ 
+        tmp/
+          img_align_celeba/
+                images
+                ....
+        criminel.css
+        home.css
+        logo3.jpg
+    templates/
+      home.html
+      criminel.html
+    appli.py
+    serveur.py
+    gestion.py
+  
+
