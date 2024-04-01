@@ -38,3 +38,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+h1 {
+    color: #c6c6c6; /* Texte gris clair */
+    text-align: center; /* Centrer le texte */
+}
