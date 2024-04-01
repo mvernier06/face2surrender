@@ -49,3 +49,8 @@ div > img {
     float: left; /* Alignement à gauche */
     margin-right: 10px; /* Marge à droite */
 }
+
+div > span {
+    font-size: 24px; /* Taille de police */
+    font-weight: bold; /* Gras */
+}
