@@ -1,0 +1,12 @@
+.grid-container {
+    background-color: #c6c6c6; /* Fond de matrice gris */
+    padding: 10px; /* Espacement autour des images */
+    border-radius: 5px; /* Coins arrondis */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Crée une grille avec 3 colonnes */
+    gap: 10px; /* Espacement entre les éléments de la grille */
+    margin: auto; /* Centre la grille horizontalement */
+    width: 100vw; /* Assure que la grille utilise la pleine largeur */
+    height: 100vh; /* Assure que la grille utilise la pleine hauteur */
+    box-sizing: border-box; /* Inclut padding dans le calcul de la hauteur et largeur */
+}
