@@ -1,14 +1,7 @@
 import os
 from PIL import Image
-import torch
-import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms 
-import torch.optim as optim
-import matplotlib.pyplot as plt
-import numpy as np
-from torch.utils.data import Subset, SubsetRandomSampler
-import torch.nn.functional as F
+
 
 
 class CelebADataset(Dataset):
@@ -43,37 +36,3 @@ class CelebADataset(Dataset):
                 attr = [int(x) for x in parts[1:]]
                 attributes[filename] = attr
         return attributes
-
-
-# Dataset loading 
-def main_dataset():
-    # Define the root directory where CelebA dataset is stored
-    celeba_root = '../data/img_align_celeba'
-    annotations_file = '../data/list_attr_celeba.txt'
-
-    # Define the transformations to be applied to the images
-    transform = transforms.Compose([
-        transforms.Resize((64, 64)),  # Resize images to 64x64
-        transforms.ToTensor(),         # Convert images to tensors
-    ])
-
-    # Create an instance of CelebADataset
-    celeba_dataset = CelebADataset(root_dir=celeba_root, annotations_file=annotations_file, transform=transform)
-
-    # Create a DataLoader for batching and shuffling the data
-    batch_size = 32
-    dataloader = DataLoader(celeba_dataset, batch_size=batch_size, shuffle=True)
-
-    # Now you can iterate over the DataLoader
-    for batch_images, batch_attributes in dataloader:
-        # Process each batch here
-        print("Batch size:", batch_images.size(0))
-        print("Shape of batch image tensor:", batch_images.shape)  # Example: torch.Size([32, 3, 64, 64]) for RGB images
-        print("Shape of batch attribute tensor:", batch_attributes.shape)  # Example: torch.Size([32, num_attributes])
-        break  # Break after printing the first batch
-        
-
-
-
-if __name__ == "__main__":
-    main_dataset()

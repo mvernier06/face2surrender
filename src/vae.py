@@ -3,10 +3,7 @@ import os
 from PIL import Image
 import torch
 import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms 
 import torch.optim as optim
-import matplotlib.pyplot as plt
 import numpy as np
 from torch.utils.data import Subset, SubsetRandomSampler
 import torch.nn.functional as F
