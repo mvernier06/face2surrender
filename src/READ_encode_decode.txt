@@ -1,8 +1,13 @@
 # Charger le modèle
-model_780 = VAE(input_channels, latent_dim)
+import vae
+input_channels = 3
+latent_dim = 500
+
+model_780 = vae.VAE(input_channels, latent_dim)
 model_780.load_state_dict(torch.load('model_780.pth'))
 
 # Charger le subset de celebA
+from celeba_dataset import CelebADataset
 subset_780 = torch.load('subset_780.pt')
 
 
