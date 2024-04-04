@@ -1,0 +1,43 @@
+# Charger le modèle
+model_780 = VAE(input_channels, latent_dim)
+model_780.load_state_dict(torch.load('model_780.pth'))
+
+# Charger le subset de celebA
+subset_780 = torch.load('subset_780.pt')
+
+
+# Prendre un batch dans le subset (32 images)
+sample_images, _ = next(iter(subset_780))
+
+
+# Le modèle est fait pour recevoir un batch donc transformation
+# obligatoire si on veut le faire avec une seule image
+image_as_batch = sample_images[0].unsqueeze(0)
+
+# On récupère mu et logvar qui serviront pour le vecteur latent
+image_encoded_mu, image_encoded_logvar = model_780.encode(image_as_batch)
+
+# On obtient l'image sous forme de vecteur latent
+latent_image = model_780.reparameterize(image_encoded_mu,image_encoded_logvar)
+#La longueur ici sera 500 = latent dim qu'on a utilisé pour le modèle
+
+# Les modifications de l'algo genetique se feront là à priori
+
+
+# On décode l'image
+rebuilt_image = model_780.decode(latent_image)
+
+# On peut la transformer en numpy array et l'afficher
+numpy_image = rebuilt_image.detach().cpu().numpy()
+import matplotlib.pyplot as plt
+
+def show_image(image):
+    image = np.transpose(image, (1, 2, 0))  # Transpose dimensions to (height, width, channels)
+    plt.imshow(image)
+    plt.axis('off')
+    plt.show()
+
+show_image(numpy_image[0])
+
+
+
