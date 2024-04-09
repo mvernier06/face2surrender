@@ -78,8 +78,8 @@ button {
 }
 
 button:hover {
-    background-color: white ;
-    color: black;
+    background-color: #656565 ;
+    color: white;
 }
 
 .header img {
