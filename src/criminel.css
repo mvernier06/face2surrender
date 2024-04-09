@@ -19,10 +19,6 @@
     max-width: 100%; /* Limite la largeur de l'image à 100% de la taille du conteneur */
     max-height: 100%; /* Limite la hauteur de l'image à 100% de la taille du conteneur */
     position: absolute; /* Permet de positionner l'image par rapport à son conteneur */
-    top: 0; /* Positionne l'image en haut du conteneur */
-    left: 0; /* Positionne l'image à gauche du conteneur */
-    bottom: 0; /* Positionne l'image en bas du conteneur */
-    right: 0; /* Positionne l'image à droite du conteneur */
     margin: auto; /* Centre l'image horizontalement et verticalement dans son conteneur */
     object-fit: contain; /* Ajuste la taille de l'image pour s'adapter au conteneur sans déformer l'image */
     cursor: pointer; /* Curseur en forme de main pour indiquer que l'image est cliquable */
@@ -69,3 +65,13 @@ div > span {
     border-radius: 5px; /* Coins arrondis */
     cursor: pointer; /* Curseur en forme de main */
 }
+
+button:hover {
+    background-color: #656565 ;
+    color: white;
+}
+
+/*top: 0; /* Positionne l'image en haut du conteneur */
+/*left: 0; /* Positionne l'image à gauche du conteneur */
+/*bottom: 0; /* Positionne l'image en bas du conteneur */
+/*right: 0; /* Positionne l'image à droite du conteneur */
