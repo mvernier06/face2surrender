@@ -1,0 +1,48 @@
+body {
+    background-color: black; /* Fond noir */
+    color: #c6c6c6; /* Texte gris clair */
+    font-family: Arial, sans-serif; /* Police de caractères */
+}
+
+.header {
+    margin-bottom: 20px; /* Espacement entre le titre et le contenu */
+}
+
+h1 {
+    color: #c6c6c6; /* Texte gris clair */
+    text-align: center; /* Centrer le texte */
+}
+
+.logo {
+    height: 50px; /* Hauteur du logo */
+    float: left; /* Alignement à gauche */
+    margin-right: 10px; /* Marge à droite */
+}
+
+.image {
+    display: block; /* Pour centrer l'image */
+    margin: auto; /* Centrer horizontalement */
+    width: 30%; /* Largeur de l'image */
+    height: auto; /* Hauteur automatique pour préserver les proportions */
+}
+
+div > span {
+    font-size: 24px; /* Taille de police */
+    font-weight: bold; /* Gras */
+}
+
+.bouton_retour {
+    display: block;
+    margin:  auto; /* Marge pour le centrer horizontalement avec un espace supplémentaire en haut */
+    padding: 20px 40px; /* Ajouter un espacement interne plus grand */
+    font-size: 1.2em; /* Taille de police plus grande */
+    background-color: #f2f2f2; /* Fond gris */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en forme de main */
+}
+
+button:hover {
+    background-color: #656565 ;
+    color: white;
+}
