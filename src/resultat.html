@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face2Surrender - Affichage du criminel </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/resultat.css" type="text/css">
+</head>
+<body>
+    <div style="text-align: right;">
+        <img src="../static/logo3.jpg" alt="Logo" style="height: 50px;" class="logo">
+        <span>Face2Surrender</span>
+    </div>
+    </div>
+      <h1>Le criminel identifié est :</h1>
+      <img src="{{img}}" alt="Criminel identifié" class="image">
+      <form action="{{url_for("home")}}">
+        <button type="submit" class='bouton_retour'>Démarer une nouvelle identification</button>
+      </form>
+  </div>
+</body>
+</html>
