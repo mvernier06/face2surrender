@@ -1,13 +1,5 @@
 import os
 import random
-import io
-import numpy as np
-from PIL import Image
-import tempfile
-from io import BytesIO
-import matplotlib.pyplot as plt
-
-
 
 def loadtmp(folder_name):
     folder_path = os.path.join('static', folder_name)  # Chemin absolu vers le dossier dans 'static'
