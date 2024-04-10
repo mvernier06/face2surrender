@@ -1,14 +1,10 @@
 import os
 import random
 import io
-# import torch
 import numpy as np
-# import base64
 from PIL import Image
 import tempfile
 from io import BytesIO
-# import matplotlib
-# matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -35,7 +31,3 @@ def loadtmp(folder_name):
     except Exception as e:
         print(f"Une erreur est survenue lors du chargement des images du dossier '{folder_path}': {e}")
         return []
-    
-
-
-    return random.sample(loaded_sample_images_np, 9)
