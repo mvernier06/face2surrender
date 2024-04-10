@@ -11,6 +11,7 @@ from torch.utils.data import Subset, SubsetRandomSampler
 import torch.nn.functional as F
 import dataset
 import vae
+from vae import vae_loss
 
 
 # Define the root directory where CelebA dataset is stored
