@@ -1,13 +1,14 @@
+
 .grid-container {
     background-color: #c6c6c6; /* Fond de matrice gris */
-    padding: 10px; /* Espacement autour des images */
+    padding: 5px; /* Réduit l'espacement autour des images */
     border-radius: 5px; /* Coins arrondis */
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Crée une grille avec 3 colonnes */
-    gap: 10px; /* Espacement entre les éléments de la grille */
+    grid-template-columns: repeat(3, 1fr); /* Ajuste automatiquement le nombre de colonnes en fonction de la taille de l'écran */
+    gap: 5px; /* Réduit l'espacement entre les éléments de la grille */
     margin: auto; /* Centre la grille horizontalement */
-    width: 100vw; /* Assure que la grille utilise la pleine largeur */
-    height: 100vh; /* Assure que la grille utilise la pleine hauteur */
+    width: 40vw; /* Réduit la largeur de la grille pour qu'elle soit de 90% de la largeur de la vue */
+    height: 85vh; /* Réduit la hauteur de la grille pour qu'elle soit de 90% de la hauteur de la vue */
     box-sizing: border-box; /* Inclut padding dans le calcul de la hauteur et largeur */
 }
 
@@ -55,7 +56,7 @@ div > span {
     border: 2px solid #007bff; /* Bordure bleue pour indiquer que l'image est sélectionnée */
 }
 
-.bouton {
+.bouton_selection {
     display: block; /* Afficher en tant que bloc pour le centrer */
     margin: 20px auto; /* Marge pour le centrer horizontalement */
     padding: 15px 30px; /* Ajouter un espacement interne */
@@ -66,11 +67,26 @@ div > span {
     cursor: pointer; /* Curseur en forme de main */
 }
 
+.bouton_container {
+    text-align: center; /* Centrer le contenu horizontalement */
+}
+
+.bouton_selection, .bouton_identification {
+    display: inline-block; /* Afficher les boutons en ligne */ */
+    margin: 0 40px; /* Ajouter une marge entre les boutons */
+    padding: 0 30px; /* Ajouter un espacement interne */
+    font-size: 1.2em; /* Taille de police plus grande */
+    background-color: #f2f2f2; /* Fond gris */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en forme de main */
+}
+
+
 button:hover {
     background-color: #656565 ;
     color: white;
 }
-
 /*top: 0; /* Positionne l'image en haut du conteneur */
 /*left: 0; /* Positionne l'image à gauche du conteneur */
 /*bottom: 0; /* Positionne l'image en bas du conteneur */
