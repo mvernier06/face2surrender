@@ -81,7 +81,7 @@ for epoch in range(epochs):
         reconstructed, mu, logvar = model(batch_images, batch_attributes)  # Pass both images and attributes
         
         # Compute the VAE loss
-        loss = vae_loss(reconstructed, batch_images, mu, logvar)
+        loss = vae_loss(reconstructed, batch_images, mu, logvar,input_channels)
         
         # Backpropagation
         loss.backward()
