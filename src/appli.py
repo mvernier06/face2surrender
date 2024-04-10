@@ -20,6 +20,8 @@ def criminel():
         print(selected_images)
         # ici il faudra envoyer les images selectionnée à l'algo génétique
         # et récuperer 9 nouvelles images faites pas l'algo génétique
+        images = loadtmp('tmp/img_align_celeba')
+        return render_template('criminel.html', imgtmp=images)
     images = loadtmp('tmp/img_align_celeba')
     return render_template('criminel.html', imgtmp=images)
 
