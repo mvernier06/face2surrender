@@ -43,3 +43,12 @@ def mutation(individus):
             if abs(np.random.rand()) > seuil_mutation:
                 individu[i] += np.random.randn() * 0.1 # On atténue la variation pour produire des changements visuels légers. 
     return individus
+
+# Fonction pour calculer la distance euclidienne
+def comparer_parents_enfants(parents, enfants):
+    distances_moyennes = []
+    for enfant in enfants:
+        distances = [np.linalg.norm(enfant - parent) for parent in parents]
+        distance_moyenne = np.mean(distances)
+        distances_moyennes.append(distance_moyenne)
+    return distances_moyennes
