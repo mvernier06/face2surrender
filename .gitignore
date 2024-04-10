@@ -13,4 +13,5 @@ __pycache__/
 *.pyd
 .vscode/
 *.log
-
+AlgoGenDev.ipynb
+Autoencoder.ipynb
