@@ -17,6 +17,7 @@ def criminel():
     # si on a selectionné des images, on les traite dans cette partie
     if flask.request.method == 'POST':
         selected_images = request.json.get('selected_images', [])
+        
         print(selected_images)
         # ici il faudra envoyer les images selectionnée à l'algo génétique
         # et récuperer 9 nouvelles images faites pas l'algo génétique
