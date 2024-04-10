@@ -4,17 +4,15 @@ import torch
 import vae
 import os
 import numpy as np
-from vae import latent_dim
 
 model = vae.load_model()
-
 # Paramètres de l'algorithme génétique
 taille_vecteur = 500 # dimension des vecteurs latents définis dans vae
 seuil_mutation = 1.64 # Une VA suivant N(0,1) déterminera si un élément d'un vecteur latent sera muté. Un zscore de 1.64 en valeur absolue comme seuil permettra de muter environ 10% des éléments
 taux_croisement = 0.2
 nombre_nouveaux_individus = 20  # Générer 20 vecteurs enfants 
 
-# Fonction de croisement intercalé entre les vecteurs latents
+# Fonction de croisement intercalé entre les vecteurs latents qui simule une recombinaison
 def croisement_intercalé(parents):
     taille_segment = int(taille_vecteur * taux_croisement)
     if taille_segment < 1:
@@ -52,3 +50,22 @@ def comparer_parents_enfants(parents, enfants):
         distance_moyenne = np.mean(distances)
         distances_moyennes.append(distance_moyenne)
     return distances_moyennes
+
+def algo_gen(vecteurs_parents): 
+    # Application du croisement intercalé et mutation
+    if len(vecteurs_parents)==1 : 
+        vecteurs_parents.append(vecteurs_parents) # On réplique les vecteurs latents unique, pour croisement et mutation
+    elif len(vecteurs_parents)==0 :
+        return print("Aucun vecteur latent n'a pu être récupéré à partir des images sélectionnées.")
+    nouveaux_individus = croisement_intercalé(vecteurs_parents) # À partir des parents, on produit 20 nouveaux individus
+    nouveaux_individus = mutation(vecteurs_parents) # Que l'on fait muter.
+    # Calcul des distances moyennes et sélection des 9 enfants avec la plus petite distance moyenne
+    distances_moyennes = comparer_parents_enfants(vecteurs_parents, nouveaux_individus)
+    indices_selectionnés = np.argsort(distances_moyennes)[:9]  # Indices des 9 plus petites distances
+    # Sélection des 9 enfants avec la plus petite distance moyenne afin de minimiser le risque de modifications 'outliers'. 
+    enfants_selectionnés = [nouveaux_individus[i] for i in indices_selectionnés]
+    return enfants_selectionnés
+
+# # Affichage des vecteurs des enfants sélectionnés
+# for i, enfant in enumerate(enfants_selectionnés, start=1):
+#     print(f"Enfant sélectionné {i} : {enfant[:128]}")
