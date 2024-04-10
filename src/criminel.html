@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Face2Surrender - Résultats</title>
+    <title>Face2Surrender - Sélection des visages </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/criminel.css" type="text/css">
 </head>
 <body>
-    <div style="text-align: right;">
+    <div >
         <img src="../static/logo3.jpg" alt="Logo" style="height: 50px;">
         <span>Face2Surrender</span>
     </div>
-    <h1>Evaluez chacun des profils</h1>
-    <form id="imageSelectionForm"> <!-- Formulaire pour la sélection des images -->
+    <h1>Sélectionnez les profils ressemblants</h1>
+    <form id="imageSelectionForm">
       <div class="grid-container">
         {% for image in imgtmp %}
             <div class="grid-item" onclick="toggleSelection(this)">
-                <img src="{{ url_for('static', filename=image.src) }}" alt="{{ image.alt }}">
-                <input type="hidden" name="selected_images[]" value="{{ image.src }}"> <!-- Champ caché pour stocker les noms des images sélectionnées -->
+                <img src="{{url_for('static', filename=image.src)}}" alt="{{image}}">
+                <input type="hidden" name="selected_images[]" value="{{ image.src }}">
             </div>
         {% endfor %}
       </div>
-      <button type="button" class="bouton" onclick="submitSelectedImages()">Sélectionner les visages qui correspondent le mieux </button> <!-- Bouton pour soumettre le formulaire -->
+      <button type="button" class="bouton_selection" onclick="submitSelectedImages()">Sélectionner les visages qui correspondent le mieux </button>
+      <!-- Bouton pour soumettre le formulaire -->
+      <button type="button" class="bouton_identification" onclick="identificationCriminel()">C'est lui !!</button>
+      <!-- Bouton pour identifier le criminel -->
     </form>
 
     <script>
     function toggleSelection(element) {
-        element.classList.toggle('selected'); // Ajoute ou supprime la classe "selected" sur l'élément cliqué
+        element.classList.toggle('selected');
     }
 
     function submitSelectedImages() {
@@ -52,6 +55,14 @@
         })
         .catch(error => console.error('Erreur lors de l\'envoi des images sélectionnées :', error));
     }
+
+    function identificationCriminel() {
+        const selectedImageSrc = document.querySelector('.grid-item.selected img').getAttribute('src');
+        console.log(selectedImageSrc); // Affiche l'URL de l'image sélectionnée dans la console du navigateur
+        // Rediriger vers la page de résultat avec l'URL de l'image sélectionnée
+        window.location.href = '/resultat?selected_image=' + encodeURIComponent(selectedImageSrc);
+    }
+
 
     </script>
 
