@@ -1,0 +1,16 @@
+src/static/tmp/img_align_celeba
+src/static/models/model_780.pth
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.vscode/
+*.log
+
