@@ -70,3 +70,19 @@ def vae_loss(recon_x, x, mu, logvar,input_channels):
     BCE = F.binary_cross_entropy(recon_x.view(-1, input_channels*64*64), x.view(-1, input_channels*64*64), reduction='sum')
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
     return BCE + KLD
+
+# Charger le modèle
+def load_model():
+    input_channels = 3
+    latent_dim = 500
+    model_780 = VAE(input_channels, latent_dim)
+    current_dir = os.path.dirname(__file__)
+    relative_path = 'static/models/model_780.pth'
+    model_path = os.path.join(current_dir, relative_path)
+    if os.path.isfile(model_path):
+        model_780.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+        print("Le modèle a été chargé avec succès.")
+        return model_780
+    else:
+        print("Le fichier du modèle n'a pas été trouvé.")
+        return None
