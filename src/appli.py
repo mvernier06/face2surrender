@@ -14,9 +14,18 @@ def home():
 
 @app.route("/criminel", methods=['GET', 'POST'])
 def criminel():
+    # si on a selectionné des images, on les traite dans cette partie
     if flask.request.method == 'POST':
-        # Traitement de la sélection des images...
         selected_images = request.json.get('selected_images', [])
-        print(selected_images)  # Affiche les noms des images sélectionnées dans la console Flask
+        print(selected_images)
+        # ici il faudra envoyer les images selectionnée à l'algo génétique
+        # et récuperer 9 nouvelles images faites pas l'algo génétique
     images = loadtmp('tmp/img_align_celeba')
     return render_template('criminel.html', imgtmp=images)
+
+@app.route("/resultat", methods=['GET'])
+def resultat():
+    image=request.args['selected_image']
+    print(image)
+    #lien=image['src']
+    return render_template('resultat.html', img=image )
