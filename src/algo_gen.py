@@ -10,7 +10,7 @@ model = vae.load_model()
 
 # Paramètres de l'algorithme génétique
 taille_vecteur = 500 # dimension des vecteurs latents définis dans vae
-taux_mutation = 0.3
+seuil_mutation = 1.64 # Une VA suivant N(0,1) déterminera si un élément d'un vecteur latent sera muté. Un zscore de 1.64 en valeur absolue comme seuil permettra de muter environ 10% des éléments
 taux_croisement = 0.2
 nombre_nouveaux_individus = 20  # Générer 20 vecteurs enfants 
 
@@ -18,7 +18,7 @@ nombre_nouveaux_individus = 20  # Générer 20 vecteurs enfants
 def croisement_intercalé(parents):
     taille_segment = int(taille_vecteur * taux_croisement)
     if taille_segment < 1:
-        return print("Les vecteurs latents n'ont pas pu être lus ou sont de dimension inférieure au seuil taux de croisement * dimension.")
+        return print("Les vecteurs latents sont de dimension inférieure au seuil taux de croisement * dimension.")
     nouveaux_individus = []
     for i in range(nombre_nouveaux_individus):
         nouvel_individu = np.zeros(taille_vecteur)
@@ -34,3 +34,12 @@ def croisement_intercalé(parents):
                 break
         nouveaux_individus.append(nouvel_individu)
     return nouveaux_individus
+# S'il y a une corrélation spatiale dans le vecteur latent,le fait de recombiner des segments entier permet de maintenir la cohérence des caractéristiques visuelles dans les images générées.
+
+# Fonction de mutation
+def mutation(individus):
+    for individu in individus:
+        for i in range(taille_vecteur):
+            if abs(np.random.rand()) > seuil_mutation:
+                individu[i] += np.random.randn() * 0.1 # On atténue la variation pour produire des changements visuels légers. 
+    return individus
