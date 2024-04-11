@@ -87,7 +87,7 @@ existing_filtered_images = filter_existing_images(filtered_images, folder_path)
 # Maintenant, existing_filtered_images contient les noms des images qui correspondent aux attributs désirés
 # et qui existent physiquement dans le dossier spécifié.
 
-
+##############
 
 import torch
 from torchvision import transforms
