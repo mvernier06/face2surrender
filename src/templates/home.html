@@ -3,6 +3,37 @@
 <head>
     <title>Face2Surrender - Accueil</title>
     <link rel="stylesheet" href="../static/home.css" type="text/css">
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                if (!data[key]) {
+                    data[key] = [];
+                }
+                data[key].push(value);
+            }
+            fetch("{{ url_for('criminel') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Erreur lors de l\'envoi du formulaire');
+                }
+            }).then(data => {
+                document.body.innerHTML = data;
+            }).catch(error => {
+                console.error(error);
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="header">
