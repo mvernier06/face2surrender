@@ -9,7 +9,7 @@ def loadtmp(folder_name):
             return []
 
         image_files = os.listdir(folder_path)
-
+        print(image_files)
         # Construit la liste des images avec chemin d'accès relatif pour 'url_for'
         images = [
             {
@@ -23,6 +23,71 @@ def loadtmp(folder_name):
     except Exception as e:
         print(f"Une erreur est survenue lors du chargement des images du dossier '{folder_path}': {e}")
         return []
+
+def load_attributes(filepath):
+    """
+    Charge les attributs des images depuis un fichier.
+    """
+    with open(filepath, 'r') as file:
+        lines = file.readlines()
+    
+    # La première ligne contient le nombre d'images, on l'ignore ici
+    # La deuxième ligne contient les noms des attributs
+    attributes_names = lines[1].strip().split()
+    
+    # Créer un dictionnaire pour stocker les attributs de chaque image
+    images_attributes = {}
+    
+    # Parcourir les lignes restantes qui contiennent les données d'attributs
+    for line in lines[2:]:
+        parts = line.strip().split()
+        image_name = parts[0]
+        attributes_values = [int(x) for x in parts[1:]]
+        images_attributes[image_name] = dict(zip(attributes_names, attributes_values))
+    
+    return images_attributes
+
+def filter_images_by_attributes(images_attributes, desired_attributes):
+    """
+    Filtre les images basées sur des attributs désirés.
+    """
+    filtered_images = []
+    for image_name, attributes in images_attributes.items():
+        # Vérifier si l'image correspond aux attributs désirés
+        match = all(attributes[attr] == val for attr, val in desired_attributes.items())
+        if match:
+            filtered_images.append(image_name)
+    
+    return filtered_images
+
+# Exemple d'utilisation
+attributes_filepath = '/Users/thimotespitz/Downloads/list_attr_celeba.txt'
+images_attributes = load_attributes(attributes_filepath)
+
+# Disons que vous voulez des images où "Smiling" = 1 et "Male" = -1
+desired_attributes = {"Smiling": 1, "Male": -1}
+filtered_images = filter_images_by_attributes(images_attributes, desired_attributes)
+print(filtered_images)
+# Maintenant, filtered_images contient les noms des images qui correspondent aux attributs désirés
+
+
+import os
+
+def filter_existing_images(filtered_images, existing_files):
+ # Filtrer pour ne conserver que les images qui sont à la fois dans filtered_images et existing_files
+    existing_filtered_images = [img for img in filtered_images if img in existing_files]
+    return existing_filtered_images
+
+# Exemple d'utilisation
+folder_path = 'chemin/vers/votre/dossier/images'
+# Supposons que filtered_images soit la liste des noms d'images filtrées par attributs
+# Utilisez la fonction filter_images_by_attributes pour obtenir cette liste
+existing_filtered_images = filter_existing_images(filtered_images, folder_path)
+
+# Maintenant, existing_filtered_images contient les noms des images qui correspondent aux attributs désirés
+# et qui existent physiquement dans le dossier spécifié.
+
+
 
 import torch
 from torchvision import transforms
