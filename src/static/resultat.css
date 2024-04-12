@@ -9,10 +9,20 @@ body {
 }
 
 h1 {
-    color: #c6c6c6; /* Texte gris clair */
+    color: #ffffff; /* Texte gris clair */
     text-align: center; /* Centrer le texte */
 }
 
+span {
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(to right, blue, white, red);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Helvetica', sans-serif;
+    text-align: center;
+}
 .logo {
     height: 50px; /* Hauteur du logo */
     float: left; /* Alignement à gauche */
