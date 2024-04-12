@@ -2,6 +2,7 @@ import flask
 from flask import Flask
 from flask import render_template, url_for
 from gestion import loadtmp
+from gestion import selectionner_images_finale
 from flask import request, redirect
 from flask import request, render_template, jsonify
 
@@ -17,11 +18,11 @@ def criminel():
         # Vérifie si les données viennent du formulaire d'attributs
         if 'attributes' in request.form:
             selected_attributes = request.form.getlist('attributes')
-            print("Attributs sélectionnés à partir du formulaire:", selected_attributes)
-
-            # Filtrez vos images ici ou faites tout traitement nécessaire
-            #images = filter_images_based_on_attributes(selected_attributes)
-            return render_template('criminel.html')#, imgtmp=images)
+            #print("Attributs sélectionnés à partir du formulaire:", selected_attributes)
+            # Filtrer les images basées sur les attributs sélectionnés
+            images = selectionner_images_finale(selected_attributes)
+        
+            return render_template('criminel.html', imgtmp=images)
 
         # Vérifie si les données viennent d'une requête JSON (AJAX) pour les images sélectionnées
         elif request.json and 'selected_images' in request.json:
