@@ -55,13 +55,9 @@ def selectionner_images_finale(attributs_choisis):
 
     if len(images_finale) < 9:
         images_manquantes = set(toutes_images) - set(images_finale)
-        images_finale.extend(random.sample(images_manquantes, min(9 - len(images_finale), len(images_manquantes))))
+        images_finale.extend(random.sample(list(images_manquantes), min(9 - len(images_finale), len(images_manquantes))))
 
     return random.sample(images_finale, min(9, len(images_finale)))
-
-
-
-
 
 
 ################
