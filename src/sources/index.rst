@@ -16,7 +16,9 @@ It provides a simple and intuitive interface to do so.
 Check out the :doc:`usage` section for further information, including how to
 :ref:`install <installation>` the project.
 
-For more information on the autoencoder, check out the :doc:`autoencoder` section.
+For more information on the autoencoder, check out the :doc:`autoencoder` section (you'll have information on the :ref:`data <data>` too).
+
+And finally, you can check how we generated new faces :doc:`genetic-algorithm`.
 
 .. note::
 
@@ -32,6 +34,7 @@ For more information on the autoencoder, check out the :doc:`autoencoder` sectio
     
 	usage
 	autoencoder
+	genetic-algorithm
 
    
 
