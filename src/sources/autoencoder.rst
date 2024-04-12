@@ -1,7 +1,7 @@
 Autoencoder
 =====
 
-.. _Data:
+.. _data:
 
 Data
 ------------
