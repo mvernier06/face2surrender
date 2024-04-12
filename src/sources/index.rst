@@ -16,9 +16,9 @@ It provides a simple and intuitive interface to do so.
 Check out the :doc:`usage` section for further information, including how to
 :ref:`install <installation>` the project.
 
-For more information on the autoencoder, check out the :doc:`autoencoder` section (you'll have information on the :ref:`data <data>` too).
+For more information on the **autoencoder**, check out the autoencoder section of the :doc:`usage` (you'll have information on the :ref:`data <data>` too).
 
-And finally, you can check how we generated new faces :doc:`genetic-algorithm`.
+And finally, you can check how we generated new faces with the **genetic-algorithm** on the :doc:`usage`.
 
 .. note::
 
@@ -26,23 +26,12 @@ And finally, you can check how we generated new faces :doc:`genetic-algorithm`.
 
 
   Contents
-  --------
+  ---------
 
 .. toctree::
 	:maxdepth: 2
-	:caption: Contents:
-    
+	:caption: Contents: lien vers les sections :
+
 	usage
 	autoencoder
 	genetic-algorithm
-
-   
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
