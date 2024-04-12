@@ -26,7 +26,7 @@ def croisement_intercalé(parents):
             if fin_segment > taille_vecteur:
                 fin_segment = taille_vecteur
             segment = parent[position_actuelle:fin_segment]
-            if len(segment) > 0:  # Vérifiez que le segment n'est pas vide
+            if len(segment) > 0: # Si le segment n'est pas vide
                 nouvel_individu[position_actuelle:fin_segment] = segment
             position_actuelle += taille_segment
             if position_actuelle >= taille_vecteur:

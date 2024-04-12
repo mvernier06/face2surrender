@@ -39,37 +39,30 @@
     function submitSelectedImages() {
         const selectedImages = document.querySelectorAll('.grid-item.selected img');
         const selectedImageNames = Array.from(selectedImages).map(img => img.alt);
-        const submitButton = document.querySelector('#submit-button'); // Remplacez '#submit-button' par le sélecteur correct pour votre bouton
+        const submitButton = document.querySelector('#submit-button'); // Replace '#submit-button' with the correct selector for your button
+        console.log(selectedImageNames); // Display the names of the selected images in the browser console
 
-        if (selectedImageNames.length === 0) {
-            submitButton.disabled = true;
-            console.log('Aucune image sélectionnée. Le bouton de soumission est désactivé.');
-        } else {
-            submitButton.disabled = false;
-            console.log(selectedImageNames); // Affiche les noms des images sélectionnées dans la console du navigateur
-
-            // Envoyer une requête AJAX pour envoyer les noms des images sélectionnées au serveur Flask
-            fetch('/criminel', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ selected_images: selectedImageNames }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Images sélectionnées envoyées avec succès.');
-                    return response.text(); // Récupérer le texte de la réponse
-                } else {
-                    console.error('Erreur lors de l\'envoi des images sélectionnées.');
-                }
-            })
-            .then(responseText => {
-                console.log('Contenu de la réponse :', responseText); // Afficher le contenu de la réponse dans la console
-                document.body.innerHTML = responseText; // Remplacer le contenu de la page par le nouveau HTML
-            })
-            .catch(error => console.error('Erreur lors de l\'envoi des images sélectionnées :', error));
-        }
+        // Send an AJAX request to send the names of the selected images to the Flask server
+        fetch('/criminel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ selected_images: selectedImageNames }),
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Selected images sent successfully.');
+                return response.text(); // Get the response text
+            } else {
+                console.error('Error sending selected images.');
+            }
+        })
+        .then(responseText => {
+            console.log('Response content:', responseText); // Display the response content in the console
+            document.body.innerHTML = responseText; // Replace the page content with the new HTML
+        })
+        .catch(error => console.error('Error sending selected images:', error));
     }
     function identificationCriminel() {
         const selectedImageSrc = document.querySelector('.grid-item.selected img').getAttribute('src');
