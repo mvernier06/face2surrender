@@ -10,9 +10,9 @@ face2surrender/
     static/ 
         tmp/
           img_align_celeba/
-                .... 
+                .... dossier à télécharger en local à partir du drive
           current/
-                ....
+                .... dossier vide à créer en local
         criminel.css
         home.css
         logo3.jpg
