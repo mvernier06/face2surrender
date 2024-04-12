@@ -10,55 +10,56 @@
         <span>Face2Surrender</span>
     </div>
     <h1>Bienvenue dans Face2Surrender, votre logiciel de reconnaissance des criminels !</h1>
-    <h2> Selectionner les attributs correspondants à votre criminel</h2>
-    <form action="{{url_for('criminel')}}">
-        <label for="sex">Sex:</label>
-        <select name="sec" id="sex">
-            <option value="nsp">Ne sais pas</option>
-            <option value="femme">Femme</option>
-            <option value="homme">Homme</option>
-        </select><br><br>
-        <label for="couleur_cheveux">Couleur des cheveux :</label>
-        <select name="couleur_cheveux" id="couleur_cheveux">
-            <option value="blond">Blond</option>
-            <option value="brun">Brun</option>
-            <option value="noir">Noir</option>
-            <option value="nsp">Ne sais pas</option>
-        </select><br><br>
-        <label for="type_cheveux">Type des cheveux :</label>
-        <select name="type_cheveux" id="type_cheveux">
-            <option value="frise">Frisé</option>
-            <option value="boucle">Bouclé</option>
-            <option value="lisse">Lisse</option>
-            <option value="nsp">Ne sais pas</option>
-        </select><br><br>
-        <label for="couleur_yeux">Couleur des yeux :</label>
-        <select name="couleur_yeux" id="couleur_yeux">
-            <option value="bleu">Bleu</option>
-            <option value="marron">Marron</option>
-            <option value="vert">Vert</option>
-            <option value="nsp">Ne sais pas</option>
-        </select><br><br>
-        <label for="forme_visage">Forme du visage :</label>
-        <select name="forme_visage" id="forme_visage">
-            <option value="rond">Rond</option>
-            <option value="carre">carré</option>
-            <option value="ovale">Ovale</option>
-            <option value="nsp">Ne sais pas</option>
-        </select><br><br>
-        <label for="lunettes">Lunettes :</label>
-        <select name="lunettes" id="lunettes">
-            <option value="nsp">Ne sais pas </option>
-            <option value="oui">Oui</option>
-            <option value="non">Non</option>
-        </select><br><br>
-        <label for="chapeau">Chapeau :</label>
-        <select name="chapeau" id="chapeau">
-            <option value="nsp">Ne sais pas </option>
-            <option value="oui">Oui</option>
-            <option value="non">Non</option>
-        </select><br><br>
+    <h2>Selectionner les attributs correspondants à votre criminel</h2>
+    <form id="attributeSelectionForm" action="{{ url_for('criminel') }}" method="post">
+        <div class="attributes">
+            <div class="column">
+                <input type="checkbox" name="attributes" value="Male">Homme<br>
+                <input type="checkbox" name="attributes" value="Young">Jeune<br>
+                <input type="checkbox" name="attributes" value="Chubby">Potelé<br>
+                <input type="checkbox" name="attributes" value="Oval_Face">Visage ovale<br>
+                <input type="checkbox" name="attributes" value="Gray_Hair">Cheveux gris<br>
+                <input type="checkbox" name="attributes" value="Black_Hair">Cheveux noirs<br>
+                <input type="checkbox" name="attributes" value="Blond_Hair">Cheveux blonds<br>
+                <input type="checkbox" name="attributes" value="Brown_Hair">Cheveux bruns<br>
+                <input type="checkbox" name="attributes" value="Wavy_Hair">Cheveux ondulés<br>
+                <input type="checkbox" name="attributes" value="Straight_Hair">Cheveux raides<br>
+                <input type="checkbox" name="attributes" value="Bald">Chauve<br>
+                <input type="checkbox" name="attributes" value="Receding_Hairline">Calvitie naissante<br>
+                <input type="checkbox" name="attributes" value="Bangs">Frange<br>
+                <input type="checkbox" name="attributes" value="Pale_Skin">Peau pâle<br>
+                <input type="checkbox" name="attributes" value="Heavy_Makeup">Maquillage prononcé<br>
+            </div>
+            <div class="column">
+                <input type="checkbox" name="attributes" value="Eyeglasses">Lunettes<br>
+                <input type="checkbox" name="attributes" value="Narrow_Eyes">Yeux étroits<br>
+                <input type="checkbox" name="attributes" value="Arched_Eyebrows">Sourcils arqués<br>
+                <input type="checkbox" name="attributes" value="Bushy_Eyebrows">Sourcils broussailleux<br>
+                <input type="checkbox" name="attributes" value="Bags_Under_Eyes">Poches sous les yeux<br>
+                <input type="checkbox" name="attributes" value="Big_Nose">Grand nez<br>
+                <input type="checkbox" name="attributes" value="Pointy_Nose">Nez pointu<br>
+                <input type="checkbox" name="attributes" value="High_Cheekbones">Pommettes hautes<br>
+                <input type="checkbox" name="attributes" value="Big_Lips">Grandes lèvres<br>
+                <input type="checkbox" name="attributes" value="Sideburns">Favoris<br>
+                <input type="checkbox" name="attributes" value="No_Beard">Sans barbe<br>
+                <input type="checkbox" name="attributes" value="Mustache">Moustache<br>
+                <input type="checkbox" name="attributes" value="Goatee">Bouc<br>
+                <input type="checkbox" name="attributes" value="Double_Chin">Double menton<br>
+            </div>
+        </div>
+        <button type="submit" id="submitButton" disabled>Soumettre les attributs</button>
+    </form>
 
-        <button type="submit">Soumettre</button>
+    <script>
+        const checkboxes = document.querySelectorAll('#attributeSelectionForm input[name="attributes"]');
+        const submitButton = document.getElementById('submitButton');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+                submitButton.disabled = checkedCheckboxes.length === 0;
+            });
+        });
+    </script>
 </body>
 </html>

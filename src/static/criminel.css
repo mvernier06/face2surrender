@@ -12,6 +12,17 @@
     box-sizing: border-box; /* Inclut padding dans le calcul de la hauteur et largeur */
 }
 
+span {
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(to right, blue, white, red);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Helvetica', sans-serif;
+    text-align: center;
+}
+
 .grid-item {
     position: relative; /* Permet d'utiliser position absolue pour les éléments enfants */
 }
@@ -37,7 +48,7 @@ body {
 }
 
 h1 {
-    color: #c6c6c6; /* Texte gris clair */
+    color: #ffffff; /* Texte gris clair */
     text-align: center; /* Centrer le texte */
 }
 
@@ -72,7 +83,7 @@ div > span {
 }
 
 .bouton_selection, .bouton_identification {
-    display: inline-block; /* Afficher les boutons en ligne */ */
+    display: inline-block; /* Afficher les boutons en ligne */
     margin: 0 40px; /* Ajouter une marge entre les boutons */
     padding: 0 30px; /* Ajouter un espacement interne */
     font-size: 1.2em; /* Taille de police plus grande */
