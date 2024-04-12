@@ -1,12 +1,16 @@
+import torch
+from torchvision import transforms
+from PIL import Image
 import os
 import random
 import json
-
+import uuid
+from torchvision.utils import save_image
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
 
 def loadtmp(folder_name):
-    folder_path = os.path.join('static', folder_name)  # Chemin absolu vers le dossier dans 'static'
+    folder_path = os.path.join('static', folder_name)  # Chemin relatif vers le dossier dans 'static'
     try:
         if not os.path.isdir(folder_path):
             print(f"Le dossier '{folder_path}' n'existe pas ou ne peut pas être lu.")
@@ -60,7 +64,6 @@ def selectionner_images_finale(attributs_choisis):
     return random.sample(images_finale, min(9, len(images_finale)))
 
 
-################
 def load_attributes(filepath):
     with open(filepath, 'r') as file:
         lines = file.readlines()  
@@ -118,18 +121,7 @@ def get_filtered_images(desired_attributes, attributes_filepath, folder_path):
     existing_filtered_images = filter_existing_images(filtered_images, existing_files)
     
     return existing_filtered_images
-#################
-# # Exemple d'utilisation
-# attributes_filepath = os.path.join(current_directory,'static','list_attr_celeba.txt')
-# desired_attributes = {"Smiling": 1, "Male": -1}  # Exemple de critères désirés
-# filtered_existing_images = get_filtered_images(desired_attributes, attributes_filepath, os.path.join(current_directory,'static','tmp/img_align_celeba'))
-# print(filtered_existing_images)
-##############
 
-import torch
-from torchvision import transforms
-from PIL import Image
-import os
 
 def images_to_latent_vectors_list(image_names, folder_path, model, image_size=64):
     """
@@ -154,10 +146,15 @@ def images_to_latent_vectors_list(image_names, folder_path, model, image_size=64
     ])
     
     latent_vectors = []  # Pour stocker les vecteurs latents en tant que liste
-    
-    for image_name in image_names:
+    if isinstance(image_names, dict): # Si un dictionnaire est fourni, utiliser les clés comme noms d'images
+        image_names = list(image_names.keys())
+    for image in image_names:
         # Charger et transformer l'image
-        image_path = os.path.join(folder_path, image_name)
+        if '/tmp/img_align_celeba' in folder_path and 'tmp/current/' in image:
+            image_path = os.path.join(folder_path.replace('/tmp/img_align_celeba', '/tmp/current'), image.split('tmp/current/')[1])
+        else:
+            image_path = os.path.join(folder_path, image)
+        print(f"Chemin de l'image pb",folder_path, image)
         image = Image.open(image_path).convert('RGB')
         image = transform(image).unsqueeze(0)  # Appliquer la transformation et ajouter une dimension de batch
         
@@ -166,14 +163,8 @@ def images_to_latent_vectors_list(image_names, folder_path, model, image_size=64
             mu, logvar = model.encode(image)
             latent_vector = model.reparameterize(mu, logvar)
             latent_vectors.append(latent_vector.squeeze(0))  # Supprimer la dimension de batch et ajouter à la liste
-    
+    print(f"Vecteurs sortis encodeur",latent_vectors)
     return latent_vectors
-
-import torch
-import os
-import uuid
-from torchvision.utils import save_image
-from PIL import Image
 
 def decode_and_save_images(latent_vectors, model, parent_uuid=None, output_dir='tmp/current'):
     """
@@ -184,6 +175,9 @@ def decode_and_save_images(latent_vectors, model, parent_uuid=None, output_dir='
     - model: Le modèle VAE pré-entraîné pour le décodage.
     - parent_uuid: UUID du parent. Si None, utilise 'celeba' pour les images initiales.
     - output_dir: Le dossier de base où les images seront enregistrées.
+    
+    Returns:
+    - Le nom du dossier où les images ont été enregistrées.
     """
     model.eval()  # Mettre le modèle en mode évaluation
     
@@ -196,26 +190,31 @@ def decode_and_save_images(latent_vectors, model, parent_uuid=None, output_dir='
     else:
         parent_name = parent_uuid
     
-    # Créer le chemin du dossier pour sauvegarder les images
-    save_path = os.path.join(output_dir, f"{operation_uuid}_{parent_name}")
+    # Vérifie si 'tmp/current' ou 'tmp/celeba' est déjà dans 'output_dir'
+    if 'tmp/current' in output_dir or 'tmp/celeba' in output_dir:
+        # Si c'est le cas, utilisez simplement 'output_dir' comme chemin du dossier
+        save_path_rel = os.path.join(output_dir, f"a_{operation_uuid}_{parent_name}")
+    else:
+        # Sinon, ajoutez 'tmp/current' ou 'tmp/celeba' au début de 'output_dir' en fonction de 'parent_name'
+        save_path_rel = os.path.join(output_dir, f"tmp/{parent_name}", f"a_{operation_uuid}_{parent_name}")
+
+    save_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', save_path_rel)
     os.makedirs(save_path, exist_ok=True)
     
     # Boucle sur chaque vecteur latent
     for i, latent_vector in enumerate(latent_vectors, start=1):
         # Décoder le vecteur latent en image
         with torch.no_grad():
-            decoded_image = model.decode(latent_vector.unsqueeze(0))
+            latent_vector = torch.from_numpy(latent_vector).unsqueeze(0)
+            decoded_image = model.decode(latent_vector.type_as(model.decoder_fc.weight))
         
         # Convertir le tenseur en image PIL pour sauvegarde en format .jpg
         image = decoded_image.squeeze(0).detach().cpu()  # Supprimer la dimension de batch et déplacer en mémoire CPU
         image = transforms.ToPILImage()(image)
         
         # Construire le chemin de l'image et sauvegarder
-        image_path = os.path.join(save_path, f"{operation_uuid}_{i}.jpg")
+        image_path = os.path.join(save_path, f"a_{operation_uuid}_{i}.jpg")
         image.save(image_path, 'JPEG')
-
-# Exemple d'utilisation
-# Présumant que vous avez une liste de vecteurs latents `latent_vectors` et un modèle `model_780`
-# decode_and_save_images(latent_vectors, model_780, parent_uuid="exemple_parent_uuid")
-
+    print(f"Oui oui", save_path_rel)
+    return save_path_rel
 
