@@ -16,4 +16,5 @@ __pycache__/
 *.log
 AlgoGenDev.ipynb
 Autoencoder.ipynb
+autoencoder.ipynb
 face2surrender.tar

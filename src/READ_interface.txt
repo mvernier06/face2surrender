@@ -10,16 +10,23 @@ face2surrender/
     static/ 
         tmp/
           img_align_celeba/
-                images
+                .... 
+          current/
                 ....
         criminel.css
         home.css
         logo3.jpg
+        attribute_images.json
     templates/
       home.html
       criminel.html
     appli.py
     serveur.py
     gestion.py
+    vae.py
+    model_training.py
+    dataset.py
+    algo_gen.py
+
   
 
