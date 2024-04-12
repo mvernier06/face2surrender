@@ -195,7 +195,7 @@ def decode_and_save_images(latent_vectors, model, parent_uuid=None, output_dir='
         # Si c'est le cas, utilisez simplement 'output_dir' comme chemin du dossier
         save_path_rel = os.path.join(output_dir, f"a_{operation_uuid}_{parent_name}")
     else:
-        # Sinon, ajoutez 'tmp/current' ou 'tmp/celeba' au début de 'output_dir' en fonction de 'parent_name'
+        # Sinon, ajouter 'tmp/current' ou 'tmp/celeba' au début de 'output_dir' en fonction de 'parent_name'
         save_path_rel = os.path.join(output_dir, f"tmp/{parent_name}", f"a_{operation_uuid}_{parent_name}")
 
     save_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', save_path_rel)

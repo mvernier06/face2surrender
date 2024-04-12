@@ -8,7 +8,7 @@ import numpy as np
 model = vae.load_model()
 # Paramètres de l'algorithme génétique
 taille_vecteur = 500 # dimension des vecteurs latents définis dans vae
-seuil_mutation = 0.3 # Une VA suivant N(0,1) déterminera si un élément d'un vecteur latent sera muté. Un zscore de 1.64 en valeur absolue comme seuil permettra de muter environ 10% des éléments
+seuil_mutation = 0.3 # Une VA suivant N(0,1) déterminera si un élément d'un vecteur latent sera muté. Un zscore de 1.64 en valeur absolue comme seuil permettrait de muter environ 10% des éléments
 taux_croisement = 0.5
 nombre_nouveaux_individus = 20  # Générer 20 vecteurs enfants 
 
@@ -42,25 +42,6 @@ def mutation(individus):
             if abs(np.random.rand()) > seuil_mutation:
                 individu[i] += np.random.randn() * 0.1 # On atténue la variation pour produire des changements visuels légers. 
     return individus
-
-# def convert_to_tensor(parent):
-#     if isinstance(parent, list) and all(isinstance(i, list) for i in parent):
-#         return [torch.from_numpy(np.array(i)).clone() for i in parent]
-#     elif isinstance(parent, list):
-#         return [torch.from_numpy(np.array(i)).clone() for i in parent]
-#     else:
-#         return parent.clone()
-
-# # Fonction pour calculer la distance euclidienne
-# def comparer_parents_enfants(parents, enfants):
-#     distances_moyennes = []
-#     parents_copy = [convert_to_tensor(parent) for parent in parents]
-#     enfants_copy = [enfant.copy() for enfant in enfants]
-#     for enfant in enfants_copy:
-#         distances = [np.linalg.norm(enfant - parent.numpy()) for parent in parents_copy]
-#         distance_moyenne = np.mean(distances)
-#         distances_moyennes.append(distance_moyenne)
-#     return distances_moyennes
 
 def convert_to_tensor(parent):
     if isinstance(parent, list):
@@ -103,7 +84,3 @@ def algo_gen(vecteurs_parents):
     enfants_selectionnés = [nouveaux_individus[i].copy() for i in indices_selectionnes]
     print(enfants_selectionnés)
     return enfants_selectionnés
-
-# # Affichage des vecteurs des enfants sélectionnés
-# for i, enfant in enumerate(enfants_selectionnés, start=1):
-#     print(f"Enfant sélectionné {i} : {enfant[:128]}")
