@@ -1,0 +1,23 @@
+Genetic Algorithm
+=====
+
+.. _aim:
+
+Aim
+------------
+
+	The aim of the genetic algorithm is to create new faces based on the ones you selected. 
+The goal is to generate faces that are closer and closer to your attacker's with each iteration of the algorithm.
+
+
+
+How does it work ?
+-------------------
+
+	It is based on the properties of the latent vectors we have thanks to the use of pytorch VAE.
+* First, we generate 20 new faces by making a crossover	of the parents' faces (the ones you selected).
+* We then mutate those vectors by introducing random variations in their latent vector.
+* Laslty, we select the 9 faces closest to our parents' ones by calculating the Euclidean distance.
+
+
+We then display thoses 9 new faces on the next round and you just have to select the best ones !
