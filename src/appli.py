@@ -21,7 +21,7 @@ def criminel():
             #print("Attributs sélectionnés à partir du formulaire:", selected_attributes)
             # Filtrer les images basées sur les attributs sélectionnés
             images = selectionner_images_finale(selected_attributes)
-        
+            print(images)
             return render_template('criminel.html', imgtmp=images)
 
         # Vérifie si les données viennent d'une requête JSON (AJAX) pour les images sélectionnées
