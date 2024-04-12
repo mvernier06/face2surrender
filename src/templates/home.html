@@ -3,31 +3,6 @@
 <head>
     <title>Face2Surrender - Accueil</title>
     <link rel="stylesheet" href="../static/home.css" type="text/css">
-    <!-- <script>
-        function submitAttributes() {
-            const selectedAttributes = document.querySelectorAll('#attributeSelectionForm input[name="attributes"]:checked');
-            const attributeValues = Array.from(selectedAttributes).map(attr => attr.value);
-
-            console.log(attributeValues); // Affiche les attributs sélectionnés dans la console du navigateur
-
-            fetch('/criminel', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ attributes: attributeValues })
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Attributs envoyés avec succès.');
-                    window.location.reload(); // Recharger la page pour afficher les résultats ou la mise à jour
-                } else {
-                    console.error('Erreur lors de l\'envoi des attributs.');
-                }
-            })
-            .catch(error => console.error('Erreur lors de l\'envoi des attributs :', error));
-        }
-    </script> -->
 </head>
 <body>
     <div class="header">
@@ -72,7 +47,19 @@
                 <input type="checkbox" name="attributes" value="Double_Chin">Double menton<br>
             </div>
         </div>
-        <button type="submit">Soumettre les attributs</button>
+        <button type="submit" id="submitButton" disabled>Soumettre les attributs</button>
     </form>
+
+    <script>
+        const checkboxes = document.querySelectorAll('#attributeSelectionForm input[name="attributes"]');
+        const submitButton = document.getElementById('submitButton');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+                submitButton.disabled = checkedCheckboxes.length === 0;
+            });
+        });
+    </script>
 </body>
 </html>
