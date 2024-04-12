@@ -44,6 +44,21 @@ def intersection_des_listes(listes):
         ensemble_resultant.intersection_update(liste)
     return list(ensemble_resultant)
 
+def selectionner_images_finale(attributs_choisis):
+    images_par_attribut = charger_images_par_attribut(os.path.join(current_directory,'static/attribute_images.json'))
+    toutes_images = os.listdir(os.path.join(current_directory,'static/tmp/img_align_celeba'))
+    if not attributs_choisis:
+        return random.sample(toutes_images, min(9, len(toutes_images)))
+
+    listes = [images_par_attribut[attr] for attr in attributs_choisis if attr in images_par_attribut]
+    images_finale = intersection_des_listes(listes)
+
+    if len(images_finale) < 9:
+        images_manquantes = set(toutes_images) - set(images_finale)
+        images_finale.extend(random.sample(images_manquantes, min(9 - len(images_finale), len(images_manquantes))))
+
+    return random.sample(images_finale, min(9, len(images_finale)))
+
 
 
 
