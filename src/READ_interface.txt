@@ -17,6 +17,8 @@ face2surrender/
         home.css
         logo3.jpg
         attribute_images.json
+        models/
+            model_780.pth dossier à télécharger depuis le drive
     templates/
       home.html
       criminel.html
