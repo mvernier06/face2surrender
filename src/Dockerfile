@@ -1,5 +1,5 @@
 # Utiliser une image de base Python 3.8
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 
 # Définir le répertoire de travail dans le conteneur Docker
 WORKDIR /app
