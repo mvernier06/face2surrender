@@ -1,5 +1,8 @@
 import os
 import random
+import json
+
+current_directory = os.path.dirname(os.path.realpath(__file__))
 
 def loadtmp(folder_name):
     folder_path = os.path.join('static', folder_name)  # Chemin absolu vers le dossier dans 'static'
@@ -9,7 +12,7 @@ def loadtmp(folder_name):
             return []
 
         image_files = os.listdir(folder_path)
-        print(image_files)
+        #print(image_files)
         # Construit la liste des images avec chemin d'accès relatif pour 'url_for'
         images = [
             {
@@ -18,75 +21,86 @@ def loadtmp(folder_name):
             }
             for file in image_files if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))
         ]
-        return random.sample(images,9)
+        return random.sample(images,9) # Retourne une liste aléatoire de 9 images
 
     except Exception as e:
         print(f"Une erreur est survenue lors du chargement des images du dossier '{folder_path}': {e}")
         return []
 
+
+def charger_images_par_attribut(chemin_fichier):
+    with open(chemin_fichier, 'r') as fichier:
+        images_par_attribut = json.load(fichier)
+    return images_par_attribut
+
+images_par_attribut = charger_images_par_attribut(os.path.join(current_directory,'static/attribute_images.json'))
+
+
+
+################
 def load_attributes(filepath):
-    """
-    Charge les attributs des images depuis un fichier.
-    """
     with open(filepath, 'r') as file:
-        lines = file.readlines()
-    
+        lines = file.readlines()  
     # La première ligne contient le nombre d'images, on l'ignore ici
     # La deuxième ligne contient les noms des attributs
-    attributes_names = lines[1].strip().split()
-    
+    attributes_names = lines[1].strip().split()    
     # Créer un dictionnaire pour stocker les attributs de chaque image
-    images_attributes = {}
-    
+    images_attributes = {}   
     # Parcourir les lignes restantes qui contiennent les données d'attributs
     for line in lines[2:]:
         parts = line.strip().split()
         image_name = parts[0]
         attributes_values = [int(x) for x in parts[1:]]
         images_attributes[image_name] = dict(zip(attributes_names, attributes_values))
-    
     return images_attributes
 
 def filter_images_by_attributes(images_attributes, desired_attributes):
-    """
-    Filtre les images basées sur des attributs désirés.
-    """
     filtered_images = []
     for image_name, attributes in images_attributes.items():
         # Vérifier si l'image correspond aux attributs désirés
         match = all(attributes[attr] == val for attr, val in desired_attributes.items())
         if match:
-            filtered_images.append(image_name)
-    
+            filtered_images.append(image_name)  
     return filtered_images
-
-# Exemple d'utilisation
-attributes_filepath = '/Users/thimotespitz/Downloads/list_attr_celeba.txt'
-images_attributes = load_attributes(attributes_filepath)
-
-# Disons que vous voulez des images où "Smiling" = 1 et "Male" = -1
-desired_attributes = {"Smiling": 1, "Male": -1}
-filtered_images = filter_images_by_attributes(images_attributes, desired_attributes)
-print(filtered_images)
-# Maintenant, filtered_images contient les noms des images qui correspondent aux attributs désirés
-
-
-import os
 
 def filter_existing_images(filtered_images, existing_files):
  # Filtrer pour ne conserver que les images qui sont à la fois dans filtered_images et existing_files
-    existing_filtered_images = [img for img in filtered_images if img in existing_files]
+    existing_files_set = set(existing_files)
+    existing_filtered_images = [img for img in filtered_images if img in existing_files_set]
     return existing_filtered_images
 
-# Exemple d'utilisation
-folder_path = 'chemin/vers/votre/dossier/images'
-# Supposons que filtered_images soit la liste des noms d'images filtrées par attributs
-# Utilisez la fonction filter_images_by_attributes pour obtenir cette liste
-existing_filtered_images = filter_existing_images(filtered_images, folder_path)
-
-# Maintenant, existing_filtered_images contient les noms des images qui correspondent aux attributs désirés
-# et qui existent physiquement dans le dossier spécifié.
-
+def get_filtered_images(desired_attributes, attributes_filepath, folder_path):
+    """
+    Retourne une liste de noms d'images présentes dans le dossier spécifié et qui correspondent aux attributs désirés.
+    
+    Parameters:
+    - desired_attributes: Dictionnaire des attributs désirés avec leurs valeurs.
+    - attributes_filepath: Chemin vers le fichier contenant les attributs des images.
+    - folder_name: Nom du dossier contenant les images.
+    
+    Returns:
+    - Liste des noms d'images filtrées et existantes dans le dossier spécifié.
+    """
+    # Charger les attributs des images depuis le fichier
+    images_attributes = load_attributes(attributes_filepath)    
+    # Filtrer les images basées sur des attributs désirés
+    filtered_images = filter_images_by_attributes(images_attributes, desired_attributes)    
+    try:
+        existing_files = os.listdir(folder_path)
+    except Exception as e:
+        print(f"Une erreur est survenue lors de la tentative de lecture du dossier '{folder_path}': {e}")
+        return []
+    
+    # Filtrer pour ne conserver que les images qui sont à la fois dans filtered_images et existing_files
+    existing_filtered_images = filter_existing_images(filtered_images, existing_files)
+    
+    return existing_filtered_images
+#################
+# # Exemple d'utilisation
+# attributes_filepath = os.path.join(current_directory,'static','list_attr_celeba.txt')
+# desired_attributes = {"Smiling": 1, "Male": -1}  # Exemple de critères désirés
+# filtered_existing_images = get_filtered_images(desired_attributes, attributes_filepath, os.path.join(current_directory,'static','tmp/img_align_celeba'))
+# print(filtered_existing_images)
 ##############
 
 import torch
@@ -180,3 +194,5 @@ def decode_and_save_images(latent_vectors, model, parent_uuid=None, output_dir='
 # Exemple d'utilisation
 # Présumant que vous avez une liste de vecteurs latents `latent_vectors` et un modèle `model_780`
 # decode_and_save_images(latent_vectors, model_780, parent_uuid="exemple_parent_uuid")
+
+
