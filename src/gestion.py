@@ -2,6 +2,7 @@ import os
 import random
 import json
 
+
 current_directory = os.path.dirname(os.path.realpath(__file__))
 
 def loadtmp(folder_name):
@@ -34,6 +35,17 @@ def charger_images_par_attribut(chemin_fichier):
     return images_par_attribut
 
 images_par_attribut = charger_images_par_attribut(os.path.join(current_directory,'static/attribute_images.json'))
+
+def intersection_des_listes(listes):
+    if not listes:
+        return []
+    ensemble_resultant = set(listes[0])
+    for liste in listes[1:]:
+        ensemble_resultant.intersection_update(liste)
+    return list(ensemble_resultant)
+
+
+
 
 
 

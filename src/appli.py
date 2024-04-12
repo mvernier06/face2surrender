@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template, url_for
 from gestion import loadtmp
 from flask import request, redirect
+from flask import request, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -10,36 +11,84 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-
-from flask import request, render_template, jsonify
-
 @app.route("/criminel", methods=['GET', 'POST'])
 def criminel():
     if request.method == 'POST':
-        # Vérifie si les données viennent d'un formulaire standard
-        if request.content_type.startswith('application/x-www-form-urlencoded'):
-            # Traite les données de formulaire standard
+        # Vérifie si les données viennent du formulaire d'attributs
+        if 'attributes' in request.form:
             selected_attributes = request.form.getlist('attributes')
             print("Attributs sélectionnés à partir du formulaire:", selected_attributes)
 
             # Filtrez vos images ici ou faites tout traitement nécessaire
             #images = filter_images_based_on_attributes(selected_attributes)
             return render_template('criminel.html')#, imgtmp=images)
-        
-        # Vérifie si les données viennent d'une requête JSON (AJAX)
-        elif request.content_type.startswith('application/json'):
-            data = request.json
-            selected_images = data.get('selected_images', [])
-            specific_param = data.get('specific_param', 'default_value')
+
+        # Vérifie si les données viennent d'une requête JSON (AJAX) pour les images sélectionnées
+        elif request.json and 'selected_images' in request.json:
+            selected_images = request.json['selected_images']
             print("Images sélectionnées pour le traitement:", selected_images)
-            print("Paramètre spécifique:", specific_param)
 
             # Faites ici le traitement nécessaire sur les images sélectionnées
-            #processed_images = process_images(selected_images, specific_param)
+            #processed_images = process_images(selected_images)
             return render_template('criminel.html')#, imgtmp=processed_images)
 
-    # Si la méthode est GET ou autre chose, chargez simplement la page avec un formulaire initial
-    return render_template('criminel.html')
+        # Gestion des autres cas non prévus
+        return jsonify(success=False, message="Invalid request or data not provided")
+
+    # Si la méthode est GET, afficher simplement la page avec un formulaire initial
+    return render_template('home.html')
+
+# @app.route("/criminel", methods=['GET', 'POST'])
+# def criminel():
+#     if request.method == 'POST':
+#         if request.content_type.startswith('application/json'):
+#             data = request.json
+#             if 'attributes' in data:
+#                 selected_attributes = data['attributes']
+#                 print("Attributs sélectionnés à partir d'AJAX:", selected_attributes)
+#                 # Vous pouvez ici filtrer les images basées sur les attributs
+#                 # images = filter_images_based_on_attributes(selected_attributes)
+#                 # return jsonify({'success': True, 'images': images})  # Pour une réponse AJAX
+#                 return render_template('criminel.html')  # Ou afficher une page avec des images   
+#             elif 'selected_images' in data:
+#                 selected_images = data['selected_images']
+#                 specific_param = data.get('specific_param', 'default_value')
+#                 print("Images sélectionnées pour le traitement:", selected_images)
+#                 print("Paramètre spécifique:", specific_param)
+#                 # Traitement des images ici
+#                 # return jsonify({'success': True})  # Pour AJAX
+
+#         return render_template('criminel.html')
+    
+#     return render_template('home.html')
+
+
+# @app.route("/criminel", methods=['GET', 'POST'])
+# def criminel():
+#     if request.method == 'POST':
+#         # Vérifie si les données viennent d'un formulaire standard
+#         if request.content_type.startswith('application/x-www-form-urlencoded'):
+#             selected_attributes = request.form.getlist('attributes')
+#             print("Attributs sélectionnés à partir du formulaire:", selected_attributes)
+
+#             # Filtrez vos images ici ou faites tout traitement nécessaire
+#             #images = filter_images_based_on_attributes(selected_attributes)
+#             return render_template('criminel.html')#, imgtmp=images)
+        
+#         # Vérifie si les données viennent d'une requête JSON (AJAX)
+#         elif request.content_type.startswith('application/json'):
+#             data = request.json
+#             selected_images = data.get('selected_images', [])
+#             specific_param = data.get('specific_param', 'default_value')
+#             print("Images sélectionnées pour le traitement:", selected_images)
+#             print("Paramètre spécifique:", specific_param)
+
+#             # Faites ici le traitement nécessaire sur les images sélectionnées
+#             #processed_images = process_images(selected_images, specific_param)
+#             return render_template('criminel.html')#, imgtmp=processed_images)
+
+#     # Si la méthode est GET ou autre chose, chargez simplement la page avec un formulaire initial
+#     return render_template('criminel.html')
 
 
 # @app.route("/criminel", methods=['GET', 'POST'])

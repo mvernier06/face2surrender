@@ -3,37 +3,31 @@
 <head>
     <title>Face2Surrender - Accueil</title>
     <link rel="stylesheet" href="../static/home.css" type="text/css">
-    <script>
-        function submitForm(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                if (!data[key]) {
-                    data[key] = [];
-                }
-                data[key].push(value);
-            }
-            fetch("{{ url_for('criminel') }}", {
+    <!-- <script>
+        function submitAttributes() {
+            const selectedAttributes = document.querySelectorAll('#attributeSelectionForm input[name="attributes"]:checked');
+            const attributeValues = Array.from(selectedAttributes).map(attr => attr.value);
+
+            console.log(attributeValues); // Affiche les attributs sélectionnés dans la console du navigateur
+
+            fetch('/criminel', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
-            }).then(response => {
+                body: JSON.stringify({ attributes: attributeValues })
+            })
+            .then(response => {
                 if (response.ok) {
-                    return response.text();
+                    console.log('Attributs envoyés avec succès.');
+                    window.location.reload(); // Recharger la page pour afficher les résultats ou la mise à jour
                 } else {
-                    throw new Error('Erreur lors de l\'envoi du formulaire');
+                    console.error('Erreur lors de l\'envoi des attributs.');
                 }
-            }).then(data => {
-                document.body.innerHTML = data;
-            }).catch(error => {
-                console.error(error);
-            });
+            })
+            .catch(error => console.error('Erreur lors de l\'envoi des attributs :', error));
         }
-    </script>
+    </script> -->
 </head>
 <body>
     <div class="header">
@@ -42,7 +36,7 @@
     </div>
     <h1>Bienvenue dans Face2Surrender, votre logiciel de reconnaissance des criminels !</h1>
     <h2>Selectionner les attributs correspondants à votre criminel</h2>
-    <form action="{{ url_for('criminel') }}" method="post">
+    <form id="attributeSelectionForm" action="{{ url_for('criminel') }}" method="post">
         <div class="attributes">
             <div class="column">
                 <input type="checkbox" name="attributes" value="Male">Homme<br>
@@ -78,7 +72,7 @@
                 <input type="checkbox" name="attributes" value="Double_Chin">Double menton<br>
             </div>
         </div>
-        <button type="submit">Soumettre</button>
+        <button type="submit">Soumettre les attributs</button>
     </form>
 </body>
 </html>
