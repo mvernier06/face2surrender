@@ -1,4 +1,5 @@
 src/static/tmp/img_align_celeba
+src/static/tmp/current
 src/static/models/model_780.pth
 .DS_Store
 Thumbs.db
