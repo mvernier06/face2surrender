@@ -20,6 +20,7 @@ face2surrender/
     templates/
       home.html
       criminel.html
+      resultat.html
     appli.py
     serveur.py
     gestion.py
