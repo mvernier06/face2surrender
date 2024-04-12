@@ -13,6 +13,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to face2surrender’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,15 +40,21 @@
 </pre></div>
 </div>
 </section>
+</section>
 <section id="using-the-interface">
-<h2>Using the interface<a class="headerlink" href="#using-the-interface" title="Link to this heading">¶</a></h2>
+<h1>Using the interface<a class="headerlink" href="#using-the-interface" title="Link to this heading">¶</a></h1>
 <p>The interface is designed to be simple and intuitive
 but here are some steps to use it :</p>
+<section id="first-page">
+<h2>First page<a class="headerlink" href="#first-page" title="Link to this heading">¶</a></h2>
 <p>The url (/home) allows you to choose the main characteristics of
 the criminal. These characteristics will be used to sort the faces
 which will be used on the following page.
 You can select the features you are interested in with the drop-down
 lists and click the button to submit the form and move to the next page</p>
+</section>
+<section id="second-page">
+<h2>Second page<a class="headerlink" href="#second-page" title="Link to this heading">¶</a></h2>
 <p>The url (/criminel) allows you to choose the faces most resembling
 the criminal you are looking for. You can select several faces and
 send them to the algorithm by clicking on the first button. You can
@@ -55,8 +62,53 @@ repeat this operation as many times as you want. At each iteration,
 new images are created using the genetic algorithm. When you have
 identified the criminal, you can select him and click on the second
 button. It will display the last page.</p>
+</section>
+<section id="final-page">
+<h2>Final page<a class="headerlink" href="#final-page" title="Link to this heading">¶</a></h2>
 <p>The url (/resultat) allows you to display the selected criminal in
 big and provides a button allowing you to start a new identification.</p>
+</section>
+</section>
+<section id="genetic-algorithm">
+<h1>Genetic Algorithm<a class="headerlink" href="#genetic-algorithm" title="Link to this heading">¶</a></h1>
+<section id="aim">
+<span id="id2"></span><h2>Aim<a class="headerlink" href="#aim" title="Link to this heading">¶</a></h2>
+<p>The aim of the genetic algorithm is to create new faces based on the ones you selected.
+The goal is to generate faces that are closer and closer to your attacker’s with each iteration of the algorithm.</p>
+</section>
+<section id="how-does-it-work">
+<h2>How does it work ?<a class="headerlink" href="#how-does-it-work" title="Link to this heading">¶</a></h2>
+<p>It is based on the properties of the latent vectors we have thanks to the use of pytorch VAE.</p>
+<ul class="simple">
+<li><p>First, we generate 20 new faces by making a crossover of the parents’ faces (the ones you selected).</p></li>
+<li><p>We then mutate those vectors by introducing random variations in their latent vector.</p></li>
+<li><p>Laslty, we select the 9 faces closest to our parents’ ones by calculating the Euclidean distance.</p></li>
+</ul>
+<p>We then display thoses 9 new faces on the next round and you just have to select the best ones !</p>
+</section>
+</section>
+<section id="autoencoder">
+<h1>Autoencoder<a class="headerlink" href="#autoencoder" title="Link to this heading">¶</a></h1>
+<section id="data">
+<span id="id3"></span><h2>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h2>
+<p>The dataset we used to train this model is celebA dataset.
+You can access it on this webpage:
+<a class="reference external" href="https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html">celebA</a></p>
+<p>Due to resources limitations, we used a subset of 2000 images to train the model.</p>
+</section>
+<section id="what-is-the-model">
+<h2>What is the model ?<a class="headerlink" href="#what-is-the-model" title="Link to this heading">¶</a></h2>
+<p>We chose to use the pytorch variational autoencoder for this project. We found that it was the best model to meet our specific requirements.
+A variational autoencoder is a type of machine learning model.
+It consists of an encoder network that compresses input data (here it’s images) into a lower dimentional space and a decoder network that reconstructs the original data from this space.
+VAEs allow to generate new data points with similar characteristics to those of the input. After training the model we can generate new images by modifying the latent space vectors.
+We had to have this generation for our project because of the genetic algorithm.
+The parameters of the trained model are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">latent_dim</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">780</span>
+</pre></div>
+</div>
+<p>We figured those parameters were good enough to make a first version of our app.</p>
 </section>
 </section>
 
@@ -77,11 +129,35 @@ big and provides a button allowing you to start a new identification.</p>
 
 
 <h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents: lien vers les sections :</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#using-the-interface">Using the interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#first-page">First page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#second-page">Second page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#final-page">Final page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#genetic-algorithm">Genetic Algorithm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aim">Aim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-it-work">How does it work ?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#autoencoder">Autoencoder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-model">What is the model ?</a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to face2surrender’s documentation!</a></li>
   </ul></li>
 </ul>
 </div>
