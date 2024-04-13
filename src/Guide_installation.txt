@@ -1,0 +1,34 @@
+##########									   ###########
+############# 			GUIDE D'INSTALLATION FACE2SURRENDER		##############
+##########									   ###########
+
+Pré-requis : Docker installé en ligne de commande. 
+
+Commandes facultatives utilisées pour construire l'archive de l'image docker
+docker build -t face2surrender .    
+docker save -o face2surrender.tar face2surrender
+
+### Méthode 1 : À partir de l'archive de l'image : 
+
+Le noyau est optimisé pour macOs, cette méthode ne nécessite aucun téléchargement autre que l'installation de docker en ligne de commande. 
+
+Commandes docker pour charger l'image    
+docker load -i face2surrender.tar 
+docker run -d -p 80:80 face2surrender    
+
+Rendez vous sur http://127.0.0.1:80/
+
+Facultatif : Commandes pour kill le port 80, lancer le démon Docker
+sudo lsof -i :80
+sudo kill -9 68475
+open --background -a Docker
+docker load -i face2surrender.tar 
+docker run -d -p 80:80 face2surrender
+
+### Méthode 2 : À partir du système de fichiers
+
+- Récupérer le système de fichiers sur GitHub https://github.com/mvernier06/face2surrender.git
+- Ajouter les dossiers et fichiers manquants en se référant à la documentation Readinterface.txt
+https://drive.google.com/drive/folders/1bqEo6_R_fMGn_M8DiajuhpgSllRwUWE6?usp=sharing
+- Commande : docker-compose up
+C'est lancé ! 
